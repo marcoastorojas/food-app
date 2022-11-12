@@ -18,16 +18,17 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
-const {  conn } = require('./src/db.js');
+const { conn } = require('./src/db.js');
 const path = require("path")
 
-server.get("*",(req,res)=>{
-  res.sendFile(path.resolve(__dirname,"public/index.html"))
+server.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "public/index.html"))
 })
 // Syncing all the models at once.
 conn.sync({ force: false }).then(() => {
-  server.listen(process.env.PORT, () => {
-    console.log('%s listening at 3001'); // eslint-disable-line no-console
+  const port = process.env.PORT | 3000
+  server.listen(port, () => {
+    console.log(`corriendo ${port}`); // eslint-disable-line no-console
   });
 });
 
